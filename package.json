@@ -1,0 +1,81 @@
+{
+  "name": "oba-all-in-one-api",
+  "version": "1.0.0",
+  "description": "FoodStyles challenge api.",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js",
+    "dev:pm2": "pm2 start src/index.js --name oba-all-in-one-backend --watch",
+    "dev-stop:pm2": "pm2 stop oba-all-in-one-backend",
+    "console": "pm2 flush && pm2 log oba-all-in-one-backend 2000",
+    "migration:add": "npx sequelize-cli migration:create",
+    "migration:up": "npx sequelize-cli db:migrate",
+    "migration:down": "npx sequelize-cli db:migrate:undo",
+    "lint": "eslint 'src/**/*.{js,jsx}'",
+    "lint:fix": "npm run lint -- --fix",
+    "format": "prettier --write .",
+    "test:unit": "jest test/unit/**.test.js --no-cache  --detectOpenHandles --runInBand --forceExit --silent",
+    "test:integration": "jest test/integration/**.test.js --no-cache  --detectOpenHandles --runInBand --forceExit --silent --verbose=true",
+    "test": "npm run test:unit && npm run test:integration",
+    "prepare": "husky install",
+    "sequelize:create:db": "npx sequelize db:create"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/orhanince/fs-todo-api"
+  },
+  "keywords": [
+    "catalog",
+    "service",
+    "microservice",
+    "expressjs",
+    "nodejs"
+  ],
+  "author": "Orhan İnce",
+  "license": "GPl-3.0",
+  "bugs": {
+    "url": "https://github.com/orhanince/fs-todo-api/issues"
+  },
+  "homepage": "https://github.com/orhanince/fs-todo-api#readme",
+  "dependencies": {
+    "@sentry/node": "^6.17.6",
+    "@sentry/tracing": "^6.17.6",
+    "axios": "^0.25.0",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "crypto-js": "^4.1.1",
+    "dotenv": "^16.0.0",
+    "express": "4.17.2",
+    "express-jsdoc-swagger": "^1.8.0",
+    "express-validator": "^6.14.0",
+    "fast-xml-parser": "^4.0.7",
+    "helmet": "^5.0.2",
+    "ioredis": "^4.28.5",
+    "jsonwebtoken": "^8.5.1",
+    "kafkajs": "^1.16.0",
+    "lodash": "^4.17.21",
+    "moment-timezone": "^0.5.39",
+    "mysql2": "^2.3.3",
+    "node-fetch": "^2.6.1",
+    "pg": "^8.7.3",
+    "sequelize": "^6.25.7",
+    "stripe": "^8.138.0",
+    "umzug": "^3.0.0",
+    "uuid": "^8.3.2",
+    "validator": "^13.7.0"
+  },
+  "devDependencies": {
+    "eslint": "8.8.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-config-standard": "^17.0.0-1",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "6.0.0",
+    "husky": "^7.0.4",
+    "jest": "^27.5.1",
+    "nodemon": "^2.0.15",
+    "prettier": "2.5.1",
+    "sequelize-cli": "^6.5.2"
+  }
+}
