@@ -1,5 +1,5 @@
 {
-  "name": "oba-all-in-one-api",
+  "name": "oba-all-in-one-form-service",
   "version": "1.0.0",
   "description": "FoodStyles challenge api.",
   "main": "src/index.js",
@@ -23,7 +23,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/orhanince/fs-todo-api"
+    "url": "git+ssh://git@github.com/orhanince/oba-all-in-one-form-service"
   },
   "keywords": [
     "catalog",
@@ -35,9 +35,9 @@
   "author": "Orhan İnce",
   "license": "GPl-3.0",
   "bugs": {
-    "url": "https://github.com/orhanince/fs-todo-api/issues"
+    "url": "https://github.com/orhanince/oba-all-in-one-form-service/issues"
   },
-  "homepage": "https://github.com/orhanince/fs-todo-api#readme",
+  "homepage": "https://github.com/orhanince/oba-all-in-one-form-service#readme",
   "dependencies": {
     "@sentry/node": "^6.17.6",
     "@sentry/tracing": "^6.17.6",

@@ -18,13 +18,13 @@ const Form = sequelize.define(
       allowNull: false,
       type: DataTypes.UUID,
     },
-    form_content_id: {
-      allowNull: true,
-      type: DataTypes.UUID,
-    },
     form_name: {
       type: DataTypes.STRING,
       allowNull: false,
+    },
+    form_content: {
+      type: DataTypes.TEXT,
+      allowNull: true,
     },
     form_published: {
       type: DataTypes.BOOLEAN,
