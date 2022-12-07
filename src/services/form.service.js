@@ -1,7 +1,6 @@
 const { Form } = require('./../models');
 const { v4: uuidv4 } = require('uuid');
 const moment = require('moment-timezone');
-const formContentService = require('./form_content.service');
 const paginationOptionGenerator = require('../utils/pagination-option-generator');
 /**
  * Get all users
@@ -18,7 +17,6 @@ async function getAll({ pagination, AUTH }) {
       user_id: AUTH.user_id,
     },
   });
-  console.log('options', options);
   const count = await Form.count({
     where: options.where,
   });
@@ -34,52 +32,22 @@ async function getAll({ pagination, AUTH }) {
   };
 }
 
-async function updateFormContentID(formContent, formID, userID) {
-  const [formUpdate] = await Form.update(
-    {
-      form_content_id: formContent.form_content_id,
-    },
-    {
-      where: {
-        form_id: formID,
-        user_id: userID,
-      },
-    }
-  );
-  return {
-    status: true,
-    formUpdate,
-  };
-}
-
 async function createForm({ body, AUTH }) {
-  const { form_name, form_content } = body;
+  const { form_name, form_content } = body || {};
   let formID = uuidv4();
-  const form = await Form.create({
+  const createForm = await Form.create({
     form_id: formID,
     user_id: AUTH.user_id,
     form_name: form_name,
+    form_content: form_content,
+    form_published: false,
     status: true,
     created_at: moment.utc().toISOString(),
   });
-
-  const formContent = await formContentService.createFormContent({
-    form_id: formID,
-    form_content: form_content,
-  });
-  if (formContent.status) {
-    const formContentUpdate = await updateFormContentID(
-      formContent.formContentID,
-      formID,
-      AUTH
-    );
-    if (formContentUpdate.status) {
-      return {
-        status: true,
-        form,
-      };
-    }
-  }
+  return {
+    status: true,
+    data: createForm,
+  };
 }
 
 module.exports = {
