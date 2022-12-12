@@ -50,8 +50,9 @@ async function createForm({ body, AUTH }) {
   };
 }
 
-async function updateForm({ body, AUTH }) {
-  const { form_id, form_name, form_content } = body || {};
+async function updateForm({ params, body, AUTH }) {
+  const { form_id } = params || {};
+  const { form_name, form_content } = body || {};
   const updateForm = await Form.update(
     {
       form_name: form_name,
