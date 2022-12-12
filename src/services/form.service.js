@@ -50,7 +50,83 @@ async function createForm({ body, AUTH }) {
   };
 }
 
+async function updateForm({ body, AUTH }) {
+  const { form_id, form_name, form_content } = body || {};
+  const updateForm = await Form.update(
+    {
+      form_name: form_name,
+      form_content: form_content,
+      updated_at: moment.utc().toISOString(),
+    },
+    {
+      where: {
+        form_id: form_id,
+        user_id: AUTH.user_id,
+        status: true,
+      },
+    }
+  );
+  return {
+    status: true,
+    data: updateForm,
+  };
+}
+
+async function publishForm({ body, AUTH }) {
+  const { form_id } = body || {};
+  const updateForm = await Form.update(
+    {
+      form_published: true,
+      form_published_at: moment.utc().toISOString(),
+      updated_at: moment.utc().toISOString(),
+    },
+    {
+      where: {
+        form_id: form_id,
+        user_id: AUTH.user_id,
+        status: true,
+      },
+    }
+  );
+
+  return {
+    status: true,
+    data: updateForm,
+  };
+}
+
+/**
+ * Delete form
+ * @param body
+ * @param AUTH
+ * @returns {Promise<{data: *, status: boolean}>}
+ */
+async function deleteForm({ body, AUTH }) {
+  const { form_id } = body || {};
+  const deleteForm = await Form.update(
+    {
+      status: false,
+      updated_at: moment.utc().toISOString(),
+      deleted_at: moment.utc().toISOString(),
+    },
+    {
+      where: {
+        form_id: form_id,
+        user_id: AUTH.user_id,
+        status: true,
+      },
+    }
+  );
+  return {
+    status: true,
+    data: deleteForm,
+  };
+}
+
 module.exports = {
   getAll,
   createForm,
+  updateForm,
+  publishForm,
+  deleteForm,
 };

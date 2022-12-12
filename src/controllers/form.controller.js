@@ -37,6 +37,23 @@ router.get('/', ...auth(), paginationMiddleware(), async (req, res, next) => {
 });
 
 /**
+ * GET /publish/{form_id}
+ * @summary All all todos.
+ * @tags Todo
+ * @security bearerAuth
+ * @return {GetTodoList} 200 - success response - application/json
+ */
+router.post('/publish/', ...auth(), async (req, res, next) => {
+  try {
+    const result = await formService.publishForm(req);
+    res.status(200).json(result);
+  } catch (e) {
+    // this line is require for global error handling.
+    next(e);
+  }
+});
+
+/**
  * GET /todo/listTodos
  * @summary All all todos.
  * @tags Todo
@@ -46,6 +63,19 @@ router.get('/', ...auth(), paginationMiddleware(), async (req, res, next) => {
 router.post('/', ...auth(), paginationMiddleware(), async (req, res, next) => {
   try {
     const result = await formService.createForm(req);
+    res.status(200).json(result);
+  } catch (e) {
+    // this line is require for global error handling.
+    next(e);
+  }
+});
+
+/**
+ * Delete /{form_id}
+ */
+router.delete('/', ...auth(), async (req, res, next) => {
+  try {
+    const result = await formService.deleteForm(req);
     res.status(200).json(result);
   } catch (e) {
     // this line is require for global error handling.
